@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         imageView = findViewById(R.id.imageView);
 
-        loadImage(url, 0f, imageView);
+        loadImage(url, imageView);
     }
 
 
@@ -40,16 +40,23 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.rotate_right:
-                loadImage(url, 90f, imageView);
+                loadImageWithRotation(url, 90f, imageView);
                 return true;
             case R.id.rotate_left:
-                loadImage(url, 270f, imageView);
+                loadImageWithRotation(url, 270f, imageView);
                 return true;
         }
         return (super.onOptionsItemSelected(item));
     }
 
-    private void loadImage(String url, Float rotation, ImageView imageView) {
+    private void loadImage(String url, ImageView imageView) {
+        Picasso.with(this)
+                .load(url)
+                .resize(1200, 1400)
+                .into(imageView);
+    }
+
+    private void loadImageWithRotation(String url, Float rotation, ImageView imageView) {
         angle += rotation;
         Picasso.with(this)
                 .load(url)
